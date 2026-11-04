@@ -1,0 +1,2 @@
+selection,filter,model,n_train,n_eval,eval_accuracy,eval_balanced_accuracy,eval_macro_f1,tn,fp,fn,tp
+best 3-fold CV balanced accuracy on train; eval used once,no_filter,rbf_svm,4700,1550,0.7974193548387096,0.7974193548387096,0.7974193548387096,618,157,157,618

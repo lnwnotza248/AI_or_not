@@ -1,0 +1,9 @@
+# ไลบรารี่ที่ notebook ใช้  ลบบรรทัดที่ไม่ใช้ และเพิ่มบรรทัดที่ใช้เพิ่ม
+numpy
+pandas
+matplotlib
+scikit-learn
+opencv-python
+librosa
+soundfile
+scipy

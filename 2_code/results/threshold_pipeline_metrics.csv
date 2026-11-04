@@ -1,0 +1,2 @@
+filter,feature,threshold,direction,train_balanced_accuracy,eval_accuracy,eval_balanced_accuracy,eval_macro_f1,n_eval,n_correct,n_errors
+bandpass_100_4000hz,mfcc_8,-19.426172256469727,lt,0.6980851063829787,0.775483870967742,0.775483870967742,0.7752308946260432,1550,1202,348

@@ -1,0 +1,13 @@
+ASVspoof 2019 LA subset for a simple DSP filtering experiment
+Random seed: 517354
+Selection: deterministic random sample, balanced bonafide/spoof within each official split.
+Purpose: compare audio-filter/pipeline outputs; this is not intended as serious model training.
+Audio files are unchanged copies from official train and eval. The dev subset was removed.
+Train and eval are balanced samples; this does not represent original class prevalence.
+Total audio files: 6250
+Total audio size: see folder sizes; expected to be under 400 MiB.
+Counts by split and label:
+  train: bonafide=2350, spoof=2350
+  eval: bonafide=775, spoof=775
+Ground truth CSV columns: id, file, label, condition, speaker_id, attack_id. Attack IDs are read from column 4 of the official CM protocol. Attack IDs are read from column 4 of the official CM protocol.
+Audio path for each row: 1_data/raw/ASVspoof2019_LA_subset/<split>/<file_id>.flac.

@@ -1,0 +1,4 @@
+id,condition,attack_id,expected,predicted,mfcc_8,failed_stage
+LA_E_5628684,bonafide,-,bonafide,spoof,-19.523475646972656,threshold if/else decision
+LA_E_1315822,A16,A16,spoof,bonafide,-15.798635482788086,threshold if/else decision
+LA_E_3526157,bonafide,-,bonafide,spoof,-26.05251121520996,threshold if/else decision

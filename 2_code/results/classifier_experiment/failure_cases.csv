@@ -1,0 +1,4 @@
+case,id,file,expected,predicted,error_type,attack_id,speaker_id,failed_stage,root_cause
+1,LA_E_1077784,ASVspoof2019_LA_subset/eval/LA_E_1077784.flac,bonafide,spoof,false_positive,-,LA_0041,RBF-SVM classification decision,Not determined from current per-file feature outputs
+2,LA_E_2236109,ASVspoof2019_LA_subset/eval/LA_E_2236109.flac,spoof,bonafide,false_negative,A12,LA_0036,RBF-SVM classification decision,Not determined from current per-file feature outputs
+3,LA_E_2871965,ASVspoof2019_LA_subset/eval/LA_E_2871965.flac,spoof,bonafide,false_negative,A15,LA_0042,RBF-SVM classification decision,Not determined from current per-file feature outputs
