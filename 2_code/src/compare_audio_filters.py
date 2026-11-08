@@ -9,7 +9,7 @@ import librosa
 import matplotlib.pyplot as plt
 import numpy as np
 import soundfile as sf
-from scipy.signal import butter, sosfiltfilt
+from scipy.signal import butter, sosfiltfilt , lfilter 
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score
 
 
@@ -18,6 +18,7 @@ N_MFCC = 13
 FEATURE_FIELDS = ["rms", "zcr", "centroid", *[f"mfcc_{i}" for i in range(1, N_MFCC + 1)]]
 FILTERS = [
     ("no_filter", None),
+    ("preemphasis", ("preemphasis", 0.97)),
     ("lowpass_4000hz", ("lowpass", 4_000)),
     ("highpass_100hz", ("highpass", 100)),
     ("bandpass_100_4000hz", ("bandpass", (100, 4_000))),
@@ -53,6 +54,8 @@ def filter_audio(
     if config is None:
         return audio
     kind, cutoff = config
+    if kind == "preemphasis":
+        return librosa.effects.preemphasis(audio, coef=cutoff).astype(np.float32, copy=False)
     sos = butter(4, cutoff, btype=kind, fs=sample_rate, output="sos")
     return sosfiltfilt(sos, audio).astype(np.float32, copy=False)
 
@@ -298,6 +301,28 @@ def main() -> None:
         )
     print(f"\nSaved features, metrics, and plot to {args.output_dir}")
 
+def plot_filter_comparison(y_original: np.ndarray, y_filtered: np.ndarray, sr: int, filter_name: str) -> None:
+    fig, ax = plt.subplots(2, 2, figsize=(12, 8))
+    
+    librosa.display.waveshow(y_original, sr=sr, ax=ax[0, 0], alpha=0.7)
+    ax[0, 0].set_title("Original Waveform")
+    
+    librosa.display.waveshow(y_filtered, sr=sr, ax=ax[0, 1], alpha=0.7, color='r')
+    ax[0, 1].set_title(f"Waveform After {filter_name}")
+    
+    D_orig = librosa.amplitude_to_db(np.abs(librosa.stft(y_original)), ref=np.max)
+    D_filt = librosa.amplitude_to_db(np.abs(librosa.stft(y_filtered)), ref=np.max)
+    
+    img1 = librosa.display.specshow(D_orig, sr=sr, x_axis='time', y_axis='hz', ax=ax[1, 0])
+    ax[1, 0].set_title("Original Spectrogram")
+    fig.colorbar(img1, ax=ax[1, 0], format="%+2.0f dB")
+    
+    img2 = librosa.display.specshow(D_filt, sr=sr, x_axis='time', y_axis='hz', ax=ax[1, 1])
+    ax[1, 1].set_title(f"Spectrogram After {filter_name}")
+    fig.colorbar(img2, ax=ax[1, 1], format="%+2.0f dB")
+    
+    plt.tight_layout()
+    plt.show()
 
 if __name__ == "__main__":
     main()
